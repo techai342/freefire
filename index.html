@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech.AI - Free Fire Panels</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;900&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      color: #fff;
+      text-align: center;
+      background: black;
+    }
+
+    /* Background Animated Gradient */
+    body::before {
+      content: "";
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      top: -50%;
+      left: -50%;
+      background: linear-gradient(270deg, #ff0040, #005dff, #00ffd5, #ff00ff);
+      background-size: 800% 800%;
+      animation: gradientMove 15s ease infinite;
+      z-index: -3;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Floating Particles */
+    .particles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: rgba(255,255,255,0.8);
+      border-radius: 50%;
+      animation: float 10s linear infinite;
+    }
+
+    @keyframes float {
+      from { transform: translateY(100vh) scale(0.5); opacity: 1; }
+      to { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 40px;
+      text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #0ff;
+      animation: flicker 2s infinite;
+    }
+
+    @keyframes flicker {
+      0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        text-shadow: 
+          0 0 5px #0ff,
+          0 0 10px #0ff,
+          0 0 20px #0ff,
+          0 0 40px #0ff;
+      }
+      20%, 24%, 55% {
+        text-shadow: none;
+      }
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 40px;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 15px 35px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      color: white;
+      text-decoration: none;
+      letter-spacing: 1px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 30px rgba(255,255,255,0.8);
+    }
+
+    .btn-red {
+      background: linear-gradient(45deg, #ff0000, #ff4d4d);
+      box-shadow: 0 0 20px #ff0000, 0 0 40px #ff4d4d;
+    }
+
+    .btn-blue {
+      background: linear-gradient(45deg, #005eff, #00d9ff);
+      box-shadow: 0 0 20px #00d9ff, 0 0 40px #005eff;
+    }
+
+    .footer {
+      font-size: 0.95rem;
+      color: #ccc;
+      margin-top: 20px;
+      text-shadow: 0 0 5px #fff;
+      padding: 0 15px;
+    }
+
+    /* Login Modal */
+    .login-box {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.85);
+      border: 2px solid #0ff;
+      border-radius: 20px;
+      padding: 30px;
+      z-index: 999;
+      box-shadow: 0 0 30px #0ff, 0 0 60px #00f;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translate(-50%, -60%);}
+      to {opacity: 1; transform: translate(-50%, -50%);}
+    }
+
+    .login-box h2 {
+      margin-bottom: 20px;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff, 0 0 20px #00f;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 10px;
+      outline: none;
+      font-size: 1rem;
+      background: #111;
+      color: #0ff;
+      box-shadow: inset 0 0 10px #0ff;
+      text-align: center;
+    }
+
+    .login-box button {
+      margin-top: 15px;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, #00d9ff, #005dff);
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 0 20px #00f, 0 0 40px #0ff;
+      transition: transform 0.2s ease;
+    }
+
+    .login-box button:hover {
+      transform: scale(1.05);
+    }
+
+    .error {
+      color: #ff4d4d;
+      margin-top: 10px;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .btn { font-size: 1rem; padding: 12px 25px; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Tech.AI</h1>
+  <div class="buttons">
+    <a href="https://freefre-pannels.vercel.app/" target="_blank" class="btn btn-red">Freefire Panels</a>
+    <button onclick="openLogin()" class="btn btn-blue">Freefire Sensitivity</button>
+  </div>
+  <div class="footer">
+    Website ma gaming Free Fire ka aur iski sensitivity ka pannel
+  </div>
+
+  <!-- Particle Container -->
+  <div class="particles">
+    <div class="particle" style="left:10%; animation-duration: 12s;"></div>
+    <div class="particle" style="left:30%; animation-duration: 15s;"></div>
+    <div class="particle" style="left:50%; animation-duration: 10s;"></div>
+    <div class="particle" style="left:70%; animation-duration: 18s;"></div>
+    <div class="particle" style="left:90%; animation-duration: 20s;"></div>
+  </div>
+
+  <!-- Login Modal -->
+  <div class="login-box" id="loginBox">
+    <h2>Login Required</h2>
+    <input type="text" id="username" placeholder="Enter Username">
+    <input type="password" id="password" placeholder="Enter Password">
+    <button onclick="checkLogin()">Login</button>
+    <div class="error" id="errorMsg"></div>
+  </div>
+
+  <script>
+    function openLogin() {
+      document.getElementById("loginBox").style.display = "block";
+    }
+
+    function checkLogin() {
+      let user = document.getElementById("username").value.trim();
+      let pass = document.getElementById("password").value.trim();
+      let error = document.getElementById("errorMsg");
+
+      if (user === "Muhammad SAQIB" && pass === "345678") {
+        window.open("https://drive.google.com/drive/folders/1YGHO1spij5DEs1ntt0OpRZsWJ0ckmp6H", "_blank");
+        error.innerHTML = "";
+      } else {
+        error.innerHTML = "❌ Wrong Username or Password!";
+      }
+    }
+  </script>
+</body>
+</html>
